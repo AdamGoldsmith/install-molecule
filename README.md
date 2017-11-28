@@ -8,7 +8,10 @@ Git
 
 [demo-magic](https://github.com/paxtonhare/demo-magic.git)
 
-`git clone https://github.com/paxtonhare/demo-magic.git`
+```
+git clone https://github.com/paxtonhare/demo-magic.git
+sudo yum install pv
+```
 
 ### Running it
 

@@ -33,3 +33,6 @@ pe "sudo pip install ansible"
 pe "sudo pip install docker"
 pe "sudo pip install molecule"
 
+p "An example of initialising a new role called foo using driver docker"
+pe "molecule init role --role-name foo --driver-name docker"
+
