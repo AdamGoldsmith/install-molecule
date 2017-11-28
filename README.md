@@ -13,7 +13,7 @@ Git
 ### Running it
 
 ```
-git clone
+git clone https://github.com/AdamGoldsmith/install-molecule.git
 cd install-molecule
 ./install-molecule.sh
 ```
