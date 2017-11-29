@@ -20,7 +20,7 @@
 #
 # see http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/bash-prompt-escape-sequences.html for escape sequences
 #
-DEMO_PROMPT="${GREEN}\u@${NICKNAME}${RESET}: ${RESET}\$ "
+DEMO_PROMPT="${GREEN}\u@${NICKNAME}${BLUE}: ${COLOR_RESET}\$ "
 
 # Clear the screen
 clear
