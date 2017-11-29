@@ -21,7 +21,7 @@ cd install-molecule
 ./install-molecule.sh
 ```
 
-### Asciinema of installation
+### Asciinema of installation (yes you can select the text!)
 
 <a href="https://asciinema.org/a/MQFL7KcAPEOHa1POpGtGclUot?autoplay=1" target="_blank"><img src="https://asciinema.org/a/MQFL7KcAPEOHa1POpGtGclUot.png" title="Installation video" alt="Installation video" width="640" /></a>
 
