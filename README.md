@@ -23,7 +23,7 @@ cd install-molecule
 
 ### Asciinema of installation (yes you can select the text!)
 
-<a href="https://asciinema.org/a/MQFL7KcAPEOHa1POpGtGclUot?autoplay=1" target="_blank"><img src="https://asciinema.org/a/MQFL7KcAPEOHa1POpGtGclUot.png" title="Installation video" alt="Installation video" width="640" /></a>
+<a href="https://asciinema.org/a/4Mfi4jienIUNT3V1wG81tGaCE?autoplay=1" target="_blank"><img src="https://asciinema.org/a/4Mfi4jienIUNT3V1wG81tGaCE.png" title="Installation video" alt="Installation video" width="640" /></a>
 
 ### Tested on
 
