@@ -21,6 +21,9 @@ cd install-molecule
 ./install-molecule.sh
 ```
 
+### Asciinema of installation
+
+[![asciicast](https://asciinema.org/a/MQFL7KcAPEOHa1POpGtGclUot.png)](https://asciinema.org/a/MQFL7KcAPEOHa1POpGtGclUot)
 
 ### Tested on
 
