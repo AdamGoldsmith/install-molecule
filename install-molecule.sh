@@ -22,11 +22,11 @@
 #
 DEMO_PROMPT="${GREEN}\u@${NICKNAME}${BLACK}: ${BLACK}\$ "
 
-# hide the evidence
+# Clear the screen
 clear
 
 
-# put your demo awesomeness here
+# Start the installation of molecule, testinfra & docker including their dependencies
 pe "sudo yum install gcc python-devel openssl-devel libffi-devel python-pip"
 pe "sudo pip install --upgrade pip"
 pe "sudo pip install ansible"
