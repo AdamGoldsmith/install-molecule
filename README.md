@@ -23,7 +23,7 @@ cd install-molecule
 
 ### Asciinema of installation
 
-[![asciicast](https://asciinema.org/a/MQFL7KcAPEOHa1POpGtGclUot.png)](https://asciinema.org/a/MQFL7KcAPEOHa1POpGtGclUot)
+<a href="https://asciinema.org/a/MQFL7KcAPEOHa1POpGtGclUot?autoplay=1" target="_blank"><img src="https://asciinema.org/a/MQFL7KcAPEOHa1POpGtGclUot.png" title="Installation video" alt="Installation video" width="640" /></a>
 
 ### Tested on
 
