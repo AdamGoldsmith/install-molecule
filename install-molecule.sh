@@ -27,7 +27,7 @@ clear
 
 
 # Start the installation of molecule, testinfra & docker including their dependencies
-pe "sudo yum install gcc python-devel openssl-devel libffi-devel python-pip"
+pe "sudo yum install -y gcc python-devel openssl-devel libffi-devel python-pip"
 pe "sudo pip install --upgrade pip"
 pe "sudo pip install ansible"
 pe "sudo pip install docker"
