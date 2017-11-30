@@ -26,12 +26,17 @@ DEMO_PROMPT="${GREEN}\u@${NICKNAME}${BLUE}: ${COLOR_RESET}\$ "
 clear
 
 
-# Start the installation of molecule, testinfra & docker including their dependencies
+# Start the installation of molecule including its dependencies
 pe "sudo yum install -y gcc python-devel openssl-devel libffi-devel python-pip"
 pe "sudo pip install --upgrade pip"
 pe "sudo pip install ansible"
-pe "sudo pip install docker"
+pe "sudo pip install docker-py"
 pe "sudo pip install molecule"
+#pe "sudo yum install -y yum-utils device-mapper-persistent-data lvm2"
+#pe "sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo"
+#pe "sudo yum install docker-ce"
+#pe "sudo systemctl start docker"
+#pe "sudo systemctl enable docker"
 
 #p "An example of initialising a new role called foo using driver docker"
 pe "molecule init role --role-name molecule-test --driver-name docker"
