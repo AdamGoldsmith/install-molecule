@@ -41,7 +41,7 @@ pe "sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/
 pe "sudo yum -y install docker-ce"
 pe "sudo systemctl start docker"
 pe "sudo systemctl enable docker"
-pe "sudo pip install --upgrade chardet"
+pe "sudo pip install --upgrade --force-reinstall chardet"
 pe "sudo usermod -aG docker $USER"
 
 #p "An example of initialising a new role called foo using driver docker"
