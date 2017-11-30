@@ -33,6 +33,8 @@ pe "sudo pip install ansible"
 pe "sudo pip install docker-py"
 pe "sudo pip install molecule"
 pe "sudo pip install --upgrade chardet"
+
+# Install Docker
 pe "sudo yum install -y yum-utils device-mapper-persistent-data lvm2"
 pe "sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo"
 pe "sudo yum-config-manager --enable docker-ce-edge"
@@ -40,7 +42,14 @@ pe "sudo yum-config-manager --enable docker-ce-test"
 pe "sudo yum -y install docker-ce"
 pe "sudo systemctl start docker"
 pe "sudo systemctl enable docker"
+pe "sudo sudo groupadd docker"
+pe "sudo usermod -aG docker $USER"
+origgrp=$(id -g)
+pe "sudo newgrp docker"
+pe "sudo newgrp ${origgrp}"
 
 #p "An example of initialising a new role called foo using driver docker"
 pe "molecule init role --role-name molecule-test --driver-name docker"
+pe "cd molecule-test"
+pe "molecule test"
 
