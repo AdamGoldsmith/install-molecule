@@ -44,6 +44,8 @@ pe "sudo systemctl enable docker"
 pe "sudo pip install --upgrade --force-reinstall chardet"
 pe "sudo usermod -aG docker $USER"
 
+pe "molecule --version"
+
 #p "An example of initialising a new role called foo using driver docker"
 #pe "molecule init role --role-name molecule-test --driver-name docker"
 #pe "cd molecule-test"
