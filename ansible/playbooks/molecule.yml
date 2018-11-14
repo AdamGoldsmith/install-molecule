@@ -1,0 +1,136 @@
+---
+- name: "Install docker & molecule"
+  hosts: all
+  become: true
+
+  vars_prompt:
+    - name: "virtualenv"
+      prompt: "Virtualenv name?"
+      private: false
+    - name: "role"
+      prompt: "Role name?"
+      private: false
+
+  tasks:
+  - name: "update yum packages"
+    yum:
+      name: "*"
+      state: "latest"
+
+  - name: "get installed kernels"
+    command: "rpm -q kernel"
+    args:
+      warn: false
+    register: installed_kernels
+    changed_when: false
+
+  - name: "set latest kernel"
+    set_fact:
+      latest_kernel: "{{ installed_kernels.stdout_lines | last }}"
+
+  - name: "reboot the machine if required"
+# reboot module requires Ansible >=2.7
+#    reboot:
+    command: "shutdown -t now -r"
+    when: latest_kernel.find(ansible_kernel) == -1
+
+  - name: "install docker pre-requisites"
+    yum:
+      name:
+       - "yum-utils"
+       - "device-mapper-persistent-data"
+       - "lvm2"
+
+  - name: "add docker yum repository"
+    get_url:
+      url: "https://download.docker.com/linux/centos/docker-ce.repo"
+      dest: '/etc/yum.repos.d/docker-ce.repo'
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: "install docker-ce"
+    yum:
+      name: "docker-ce"
+
+  - name: "add centos user to docker group"
+    user:
+      name: "centos"
+      append: true
+      groups: "docker"
+
+  - name: "start docker engine"
+    systemd:
+      name: "docker"
+      state: "started"
+      enabled: true
+
+# Use geerlingguy's epel-release role here
+  - name: "install epel-release"
+    command: "yum install -y epel-release"
+    args:
+      warn: false
+
+  - name: "install molecule pre-requisites"
+    yum:
+      name:
+       - "python-pip"
+       - "gcc"
+       - "python-devel"
+
+  - name: "install pip"
+    easy_install:
+      name: "pip"
+      state: "latest"
+
+  - name: "install virtualenv"
+    pip:
+      name: "virtualenv"
+
+  - name: "install molecule & docker-py"
+    pip:
+      name:
+        - "molecule"
+        - "docker-py"
+      state: "latest"
+      virtualenv: "~/{{ virtualenv }}"
+    become: false
+
+#<<< SCRIPT THE NEXT BIT...
+
+#  - name: "create molecule role {{ role }}"
+#    command: item
+#    with_items:
+#      - "source ~/{{ virtualenv }}/bin/activate"
+#      - "molecule init role -r {{ role }} -d docker"
+#    become: false
+
+  - name: "molecule init role -r {{ role }} -d docker"
+    pause:
+
+#   "Fix selinux molecule docker create error"
+  # Note: remote_src does not support recursive copy!
+  - name: "copy selinux directory to virtual env directory"
+    copy:
+      remote_src: true
+      src: "/usr/lib64/python2.7/site-packages/selinux/{{ item }}"
+      dest: "~/{{ virtualenv }}/lib/python2.7/site-packages/"
+    with_items:
+      - "audit2why.so"
+      - "__init__.py"
+      - "__init__.pyc"
+      - "__init__.pyo"
+      - "_selinux.so"
+    become: false
+# >>>>
+
+  # "Fix ‘Config’ object has no attribute ‘cache’ error"
+      
+  - name: "create default pytest.ini"
+    copy:
+      content: |
+        [pytest]
+        addopts = -p no:cacheprovider -p no:stepwise
+      dest: "~/{{ role }}/molecule/default/pytest.ini"
+    become: false
+
