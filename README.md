@@ -29,6 +29,18 @@ cd install-molecule
 
 * Centos 7.4
 
+### Ansible Playbook
+
+Added an Ansible playbook under the ansible directory
+* Tested on CentOS 7.5
+
+Add host information to ansible/inv.d/inventory first
+
+```
+cd ansible
+ansible-playbook playbooks/molecule.yml
+```
+
 ### Author
 
 *Adam Goldsmith*
