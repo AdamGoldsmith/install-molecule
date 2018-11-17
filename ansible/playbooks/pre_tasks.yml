@@ -1,0 +1,55 @@
+---
+- name: "update yum packages"
+  yum:
+    name: "*"
+    state: "latest"
+
+- name: "get installed kernels"
+  command: "rpm -q kernel"
+  args:
+    warn: false
+  register: installed_kernels
+  changed_when: false
+
+- name: "set latest kernel"
+  set_fact:
+    latest_kernel: "{{ installed_kernels.stdout_lines | last }}"
+
+- name: "reboot the machine if required"
+# reboot module requires Ansible >=2.7
+#    reboot:
+  command: "shutdown -t now -r"
+  when: latest_kernel.find(ansible_kernel) == -1
+
+- name: "install docker pre-requisites"
+  yum:
+    name:
+     - "yum-utils"
+     - "device-mapper-persistent-data"
+     - "lvm2"
+
+- name: "add docker yum repository"
+  get_url:
+    url: "https://download.docker.com/linux/centos/docker-ce.repo"
+    dest: '/etc/yum.repos.d/docker-ce.repo'
+    owner: root
+    group: root
+    mode: 0644
+
+- name: "install docker-ce"
+  yum:
+    name: "docker-ce"
+
+- name: "add {{ ansible_user }} user to docker group"
+  user:
+    name: "{{ ansible_user }}"
+    append: true
+    groups: "docker"
+
+- name: "start docker engine"
+  systemd:
+    name: "docker"
+    state: "started"
+    enabled: true
+  become: true
+

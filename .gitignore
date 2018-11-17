@@ -1,2 +1,4 @@
+!roles/*
+roles/*/
 *.retry
 ./ansible/inv.d/inventory

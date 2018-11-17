@@ -1,0 +1,44 @@
+---
+- name: "install molecule pre-requisites"
+  yum:
+    name:
+     - "python-pip"
+     - "gcc"
+     - "python-devel"
+
+- name: "install pip"
+  easy_install:
+    name: "pip"
+    state: "latest"
+
+- name: "install virtualenv"
+  pip:
+    name: "virtualenv"
+
+# Had to use a prompt display to avoid escaping quotation marks!
+- name: "display completion message"
+  pause:
+    prompt: |
+
+      *** All the necessary files are in place to start testing your roles with Molecule ***
+
+      Perform the following steps to test a role in a virtual env:
+ 
+      Login to the server ({{ ansible_hostname }})
+ 
+      virtualenv molecule                      # Or choose your own virtualenv name
+      source molecule/bin/activate             # Activate your virtualenv
+      pip install molecule docker-py           # Install molecule & docker-py in your virtualenv
+      molecule init role -r testrole -d docker # Initialise a role called newrole to test using docker
+      cd testrole
+
+      # Fix molecule docker create error
+      cp -r /usr/lib64/python2.7/site-packages/selinux $VIRTUAL_ENV/lib/python2.7/site-packages
+
+      # Fix ‘Config’ object has no attribute ‘cache’ error
+      printf "[pytest]\naddopts = -p no:cacheprovider -p no:stepwise\n" > molecule/default/pytest.ini
+
+      molecule test                            # Finally run the molecule test!
+
+      *** Press <Enter> to return to prompt ***
+
