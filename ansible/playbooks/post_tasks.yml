@@ -18,6 +18,7 @@
 # Had to use a prompt display to avoid escaping quotation marks!
 - name: "display completion message"
   pause:
+    seconds: 1
     prompt: |
 
       *** All the necessary files are in place to start testing your roles with Molecule ***
@@ -39,6 +40,4 @@
       printf "[pytest]\naddopts = -p no:cacheprovider -p no:stepwise\n" > molecule/default/pytest.ini
 
       molecule test                            # Finally run the molecule test!
-
-      *** Press <Enter> to return to prompt ***
 
