@@ -17,8 +17,8 @@
 
 - name: "reboot the machine if required"
 # reboot module requires Ansible >=2.7
-#    reboot:
-  command: "shutdown -t now -r"
+  reboot:
+#  command: "shutdown -t now -r"
   when: latest_kernel.find(ansible_kernel) == -1
 
 - name: "install docker pre-requisites"

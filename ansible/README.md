@@ -2,6 +2,10 @@
 
 Playbook to prepare a fedora-based distro and then install molecule for writing Ansible tests - not complete yet
 
+# Requires
+
+Ansible 2.7 (or later) for reboot module
+
 # To run it
 
 ```
